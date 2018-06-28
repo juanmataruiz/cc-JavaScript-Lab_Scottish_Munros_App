@@ -9,6 +9,15 @@ Munros.prototype.bindEvents = function () {
   PubSub.subscribe('SelectView:get-names', () => {
     this.getData();
   });
+
+  PubSub.subscribe('SelectView:get-munro-details', (event) =>{
+    const munroName = event.detail;
+    const foundMunroDetail = this.munros.find((munro) => {
+      return munro.name === munroName;
+    })
+    PubSub.publish('Munros:munro-details', foundMunroDetail);
+  });
+
 };
 
 Munros.prototype.getData = function () {

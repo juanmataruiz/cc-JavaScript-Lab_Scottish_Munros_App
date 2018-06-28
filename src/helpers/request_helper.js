@@ -7,6 +7,7 @@ RequestHelper.prototype.get = function (onComplete) {
   xhr.open('GET', this.url);
   xhr.addEventListener('load', function() {
     if(this.status !== 200){
+      console.error(this)
       return;
     }
     const data = JSON.parse(this.responseText);

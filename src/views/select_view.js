@@ -1,10 +1,16 @@
 const PubSub = require('../helpers/pub_sub.js');
+const createElement = require('../helpers/createElement.js');
 
 const SelectView = function (selectElement) {
   this.element = selectElement;
 };
 
 SelectView.prototype.bindEvents = function () {
+  this.element.addEventListener('change', (event) =>{
+    const munroName = event.target.value;
+    PubSub.publish('SelectView:get-munro-details', munroName);
+  });
+
   PubSub.subscribe('Munros:munro-name', (event) => {
     const munroNames = event.detail;
     this.populate(munroNames);
@@ -21,13 +27,6 @@ SelectView.prototype.populate = function (munroNames) {
     this.element.appendChild(createElement('option', munroName));
   }
 
-};
-
-function createElement(elementType, text) {
-  const element = document.createElement(elementType)
-  element.id = text
-  element.textContent = text
-  return element;
 };
 
 module.exports = SelectView;
