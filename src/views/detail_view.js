@@ -16,8 +16,11 @@ DetailView.prototype.populate = function (munroDetails) {
   const {name, meaning, height} = munroDetails;
 
   this.container.appendChild(createElement('h2', name))
-  this.container.appendChild(createElement('p', meaning))
-  this.container.appendChild(createElement('p', height))
+  const ul = document.createElement('ul')
+  ul.appendChild(createElement('li', meaning))
+  ul.appendChild(createElement('li', height))
+
+  this.container.appendChild(ul)
 };
 
 module.exports = DetailView;
